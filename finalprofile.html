@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Profile - SkillSwap</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #fefefe;
+      color: #333;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    header {
+      background: linear-gradient(135deg, #89f7fe, #66a6ff);
+      padding: 40px 20px;
+      text-align: center;
+      position: relative;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2rem;
+      color: #2b4f60;
+    }
+
+    /* Dark Mode Button */
+    .dark-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: #2b4f60;
+      color: white;
+      padding: 8px 14px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: 0.3s;
+    }
+    .dark-btn:hover {
+      background: #13597a;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      height: 100%;
+      width: 0;
+      position: fixed;
+      z-index: 3;
+      top: 0;
+      left: 0;
+      background-color: #2b4f60;
+      overflow-y: auto;
+      transition: 0.3s;
+      padding-top: 60px;
+    }
+    .sidebar a {
+      padding: 12px 20px;
+      text-decoration: none;
+      font-size: 18px;
+      color: white;
+      display: block;
+      transition: 0.3s;
+    }
+    .sidebar a:hover {
+      background-color: #13597a;
+    }
+    .close-btn {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      font-size: 24px;
+      color: white;
+      cursor: pointer;
+    }
+    .sidebar-btn {
+      font-size: 26px;
+      cursor: pointer;
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      color: white;
+      background: #2b4f60;
+      padding: 8px 14px;
+      border-radius: 6px;
+      border: none;
+      z-index: 4;
+    }
+
+    /* Profile Card */
+    .profile-container {
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 30px;
+      border-radius: 12px;
+      background: #fff;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    .profile-pic {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      margin-bottom: 20px;
+      object-fit: cover;
+      border: 3px solid #2b4f60;
+    }
+    .file-input {
+      display: none;
+    }
+    .profile-container h2 {
+      margin: 10px 0;
+      color: #2b4f60;
+    }
+    .profile-info p {
+      margin: 8px 0;
+    }
+
+    .btn {
+      padding: 8px 16px;
+      background: #2b4f60;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      margin: 5px;
+      transition: 0.3s;
+    }
+    .btn:hover {
+      background: #13597a;
+    }
+
+    /* Dark Mode */
+    body.dark-mode { background: #1c1c1c; color: #eee; }
+    body.dark-mode header { background: linear-gradient(135deg, #141E30, #243B55); }
+    body.dark-mode .profile-container { background: #333; color: #eee; }
+    body.dark-mode .btn { background: #444; color: #eee; }
+    body.dark-mode .btn:hover { background: #666; }
+  </style>
+</head>
+<body>
+
+  <!-- Sidebar Button -->
+  <button class="sidebar-btn" onclick="openSidebar()">☰</button>
+
+  <!-- Sidebar -->
+  <div id="sidebar" class="sidebar">
+    <span class="close-btn" onclick="closeSidebar()">×</span>
+    <a href="finalhomepage.html">Home</a>
+    <a href="finalabout.html">About Us</a>
+    <a href="finalskills.html">All Skills</a>
+    <a href="finalcontact.html">Contact</a>
+    <a href="finallogin.html">Login</a>
+    <a href="finalsignup.html">Sign Up</a>
+    <a href="finalprofile.html">Profile</a>
+    <a href="finalscheduler.html">Scheduler</a>
+    <a href="finalchat.html">Chat</a>
+    <a href="finalfaq.html">Help/FAQ</a>
+    <a href="finalevents.html">Events</a>
+    <a href="finaldashboard.html">Dashboard</a>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <h1>User Profile</h1>
+    <button class="dark-btn" onclick="toggleDarkMode()">🌙</button>
+  </header>
+
+  <!-- Profile Section -->
+  <div class="profile-container">
+    <img src="https://via.placeholder.com/120" alt="Profile Picture" id="profilePic" class="profile-pic">
+    <br>
+    <label class="btn" for="uploadPic">Change Picture</label>
+    <input type="file" id="uploadPic" class="file-input" accept="image/*">
+
+    <h2 id="profileName">Siddhi Gite</h2>
+    <div class="profile-info">
+      <p id="profileEmail">📧 Email: siddhi@example.com</p>
+      <p id="profileSkills">💡 Skills: HTML, CSS, JavaScript</p>
+      <p id="profileBio">📝 Bio: Enthusiastic learner & creator!</p>
+    </div>
+    <button class="btn" id="editBtn">Edit Profile</button>
+    <button class="btn" id="extraBtn">Toggle More Info</button>
+
+    <div id="extraInfo" style="display:none; margin-top:15px;">
+      <p>🎓 Education: BSC-IT Student</p>
+      <p>🌍 Location: Mumbai, India</p>
+    </div>
+  </div>
+
+  <script>
+    // Sidebar functions
+    function openSidebar() { document.getElementById("sidebar").style.width = "260px"; }
+    function closeSidebar() { document.getElementById("sidebar").style.width = "0"; }
+
+    // Dark mode persistence
+    if(localStorage.getItem("darkMode") === "enabled") {
+      document.body.classList.add("dark-mode");
+    }
+    function toggleDarkMode() {
+      document.body.classList.toggle("dark-mode");
+      if(document.body.classList.contains("dark-mode")){
+        localStorage.setItem("darkMode","enabled");
+      } else {
+        localStorage.setItem("darkMode","disabled");
+      }
+    }
+
+    // jQuery Profile Logic with LocalStorage
+    $(document).ready(function(){
+
+      // Load saved profile data
+      if(localStorage.getItem("profileData")){
+        let data = JSON.parse(localStorage.getItem("profileData"));
+        $("#profileName").text(data.name);
+        $("#profileEmail").text("📧 Email: " + data.email);
+        $("#profileSkills").text("💡 Skills: " + data.skills);
+        $("#profileBio").text("📝 Bio: " + data.bio);
+      }
+      if(localStorage.getItem("profilePic")){
+        $("#profilePic").attr("src", localStorage.getItem("profilePic"));
+      }
+
+      // Edit Profile fields
+      $("#editBtn").click(function(){
+        if($(this).text() === "Edit Profile"){
+          let name = $("#profileName").text();
+          let email = $("#profileEmail").text().replace("📧 Email: ","");
+          let skills = $("#profileSkills").text().replace("💡 Skills: ","");
+          let bio = $("#profileBio").text().replace("📝 Bio: ","");
+
+          $("#profileName").html('<input type="text" id="nameInput" value="'+name+'">');
+          $("#profileEmail").html('📧 Email: <input type="email" id="emailInput" value="'+email+'">');
+          $("#profileSkills").html('💡 Skills: <input type="text" id="skillsInput" value="'+skills+'">');
+          $("#profileBio").html('📝 Bio: <input type="text" id="bioInput" value="'+bio+'">');
+          $(this).text("Save Profile");
+        } else {
+          let data = {
+            name: $("#nameInput").val(),
+            email: $("#emailInput").val(),
+            skills: $("#skillsInput").val(),
+            bio: $("#bioInput").val()
+          };
+          $("#profileName").text(data.name);
+          $("#profileEmail").text("📧 Email: " + data.email);
+          $("#profileSkills").text("💡 Skills: " + data.skills);
+          $("#profileBio").text("📝 Bio: " + data.bio);
+          localStorage.setItem("profileData", JSON.stringify(data));
+          $(this).text("Edit Profile");
+        }
+      });
+
+      // Toggle extra info with animation
+      $("#extraBtn").click(function(){
+        $("#extraInfo").slideToggle("slow");
+      });
+
+      // Profile Picture Upload + Live Preview + Save
+      $("#uploadPic").change(function(e){
+        let reader = new FileReader();
+        reader.onload = function(e){
+          $("#profilePic").attr("src", e.target.result);
+          localStorage.setItem("profilePic", e.target.result);
+        }
+        reader.readAsDataURL(this.files[0]);
+      });
+
+    });
+  </script>
+
+</body>
+</html>

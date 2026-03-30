@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>About Us - SkillSwap</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #fefefe;
+      color: #333;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    /* 🌈 Header */
+    header {
+      background: linear-gradient(135deg, #89f7fe, #66a6ff);
+      color: white;
+      text-align: center;
+      padding: 80px 20px;
+      position: relative;
+    }
+    header h1 { font-size: 3rem; margin: 0; }
+    header p { font-size: 1.2rem; margin-top: 10px; }
+
+    /* 🌙 Dark Mode Button */
+    .dark-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: #2b4f60;
+      color: white;
+      padding: 10px 18px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: 0.3s;
+      z-index: 2;
+    }
+    .dark-btn:hover {
+      background: #13597a;
+      box-shadow: 0 0 10px #13597a;
+    }
+
+    /* 🌟 Sidebar Navigation */
+    .sidebar {
+      height: 100%;
+      width: 0;
+      position: fixed;
+      z-index: 3;
+      top: 0;
+      left: 0;
+      background-color: #2b4f60;
+      overflow-y: auto;
+      transition: 0.3s;
+      padding-top: 60px;
+    }
+    .sidebar a {
+      padding: 12px 20px;
+      text-decoration: none;
+      font-size: 18px;
+      color: white;
+      display: block;
+      transition: 0.3s;
+    }
+    .sidebar a:hover {
+      background-color: #13597a;
+    }
+    .close-btn {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      font-size: 24px;
+      color: white;
+      cursor: pointer;
+    }
+    .sidebar-btn {
+      font-size: 26px;
+      cursor: pointer;
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      color: white;
+      background: #2b4f60;
+      padding: 8px 14px;
+      border-radius: 6px;
+      border: none;
+      z-index: 4;
+    }
+    .sidebar-btn:hover {
+      background: #13597a;
+    }
+
+    /* Sections */
+    section { max-width: 1000px; margin: auto; padding: 60px 20px; text-align: center; }
+    h2 { color: #2b4f60; margin-bottom: 25px; }
+
+    .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+    .card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); transition: 0.3s; }
+    .card:hover { transform: translateY(-5px); box-shadow: 0 0 12px #4ecdc4; }
+    .icon { font-size: 36px; margin-bottom: 10px; }
+
+    .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
+    .team-member {
+      background: linear-gradient(135deg, #fbc2eb, #a6c1ee);
+      padding: 20px;
+      border-radius: 12px;
+      color: #222;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      transition: transform 0.2s;
+    }
+    .team-member:hover { transform: translateY(-5px); }
+    .team-member h3 { margin: 10px 0 5px; }
+    .team-member img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #fff;
+      margin-bottom: 10px;
+    }
+
+    .cta { background: linear-gradient(135deg, #a1c4fd, #c2e9fb); padding: 40px; border-radius: 12px; margin-top: 40px; }
+    .btn { background: #2b4f60; color: white; padding: 10px 18px; border-radius: 8px; text-decoration: none; margin: 8px; display: inline-block; transition: 0.3s; }
+    .btn:hover { background: #13597a; box-shadow: 0 0 10px #13597a; }
+
+    /* 🌸 Footer */
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #e2f1f8;
+      border-top: 2px solid #bbb;
+      font-size: 0.9rem;
+      color: #666;
+    }
+
+    /* 🌙 Dark Mode */
+    body.dark-mode { background: #1c1c1c; color: #eee; }
+    body.dark-mode header { background: linear-gradient(135deg, #141E30, #243B55); }
+    body.dark-mode .card { background: #333; color: #eee; }
+    body.dark-mode .team-member { background: #2b2b2b; color: #eee; }
+    body.dark-mode .cta { background: #222; color: #eee; }
+    body.dark-mode footer { background: #111; color: #aaa; }
+  </style>
+</head>
+<body>
+
+  <!-- Sidebar Button -->
+  <button class="sidebar-btn" onclick="openSidebar()">☰</button>
+
+  <!-- Sidebar -->
+  <div id="sidebar" class="sidebar">
+    <span class="close-btn" onclick="closeSidebar()">×</span>
+    <a href="finalhomepage.html">Home</a>
+    <a href="finalabout.html">About Us</a>
+    <a href="finalskills.html">All Skills</a>
+    <a href="finalcontact.html">Contact</a>
+    <a href="finallogin.html">Login</a>
+    <a href="finalsignup.html">Sign Up</a>
+    <a href="finalprofile.html">Profile</a>
+    <a href="finalscheduler.html">Scheduler</a>
+    <a href="finalchat.html">Chat</a>
+    <a href="finalfaq.html">Help/FAQ</a>
+    <a href="finalevents.html">Events</a>
+    <a href="finaldashboard.html">Dashboard</a>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <h1>About SkillSwap</h1>
+    <p>Empowering people to learn, share, and grow through skill exchange 🚀</p>
+    <button class="dark-btn" onclick="toggleDarkMode()">🌙 Dark Mode</button>
+  </header>
+
+  <!-- Mission & Vision -->
+  <section>
+    <h2>🌍 Our Mission & Vision</h2>
+    <p>At <b>SkillSwap</b>, we believe knowledge should be shared, not gated. We aim to create a global community where individuals can learn while sharing expertise, making learning collaborative, fun, and accessible to everyone.</p>
+  </section>
+
+  <!-- What We Do -->
+  <section>
+    <h2>💡 What We Do</h2>
+    <div class="card-grid">
+      <div class="card"><div class="icon">🤝</div><b>Skill Exchange</b><br>Swap skills with peers.</div>
+      <div class="card"><div class="icon">🎯</div><b>Personal Growth</b><br>Master career-boosting skills.</div>
+      <div class="card"><div class="icon">📚</div><b>Diverse Learning</b><br>Explore wide range of topics.</div>
+      <div class="card"><div class="icon">🌐</div><b>Community</b><br>Connect globally with learners.</div>
+    </div>
+  </section>
+
+  <!-- Team -->
+  <section>
+    <h2>👩‍💻 Meet the Team</h2>
+    <div class="team-grid">
+      <div class="team-member">
+        <img src="C:\Users\Sia\OneDrive\Desktop\Web Poject Final\Screenshot 2025-08-27 202017.png" alt="Vivedha">
+        <h3>Vivedha</h3><p>Design & UX</p>
+      </div>
+      <div class="team-member">
+        <img src="C:\Users\Sia\OneDrive\Desktop\Web Poject Final\Screenshot 2025-08-27 202056.png" alt="Siddhi">
+        <h3>Siddhi</h3><p>Founder & Visionary</p>
+      </div>
+      <div class="team-member">
+        <img src="C:\Users\Sia\OneDrive\Desktop\Web Poject Final\Screenshot 2025-08-27 202122.png" alt="Madiha">
+        <h3>Madiha</h3><p>Community & Outreach</p>
+      </div>
+      <div class="team-member">
+        <img src="C:\Users\Sia\OneDrive\Desktop\Web Poject Final\Screenshot 2025-08-27 202036.png" alt="Sarah">
+        <h3>Sarah</h3><p>Tech & Development</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section>
+    <div class="cta">
+      <h2>🚀 Ready to Start Your Journey?</h2>
+      <p>Join SkillSwap today and be part of a movement that makes learning fun and free!</p>
+      <a href="finallogin.html" class="btn">Login</a>
+      <a href="finalsignup.html" class="btn">Sign Up</a>
+      <br><br>
+      <a href="finalhomepage.html" class="btn">⬅ Back to Home</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 SkillSwap. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Apply dark mode from localStorage
+    if (localStorage.getItem("darkMode") === "enabled") {
+      document.body.classList.add("dark-mode");
+    }
+
+    function toggleDarkMode() {
+      document.body.classList.toggle("dark-mode");
+      if (document.body.classList.contains("dark-mode")) {
+        localStorage.setItem("darkMode", "enabled");
+      } else {
+        localStorage.setItem("darkMode", "disabled");
+      }
+    }
+
+    function openSidebar() {
+      document.getElementById("sidebar").style.width = "260px";
+    }
+    function closeSidebar() {
+      document.getElementById("sidebar").style.width = "0";
+    }
+  </script>
+
+</body>
+</html>

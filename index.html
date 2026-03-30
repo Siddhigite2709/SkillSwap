@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SkillSwap - Learn & Share Skills</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #fefefe;
+      color: #333;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    /* 🌈 Header with background image */
+    header {
+      background: linear-gradient(135deg, rgba(161,196,253,0.85), rgba(194,233,251,0.85)),
+                  url('https://images.unsplash.com/photo-1529101091764-c3526daf38fe?auto=format&fit=crop&w=1600&q=80');
+      background-size: cover;
+      background-position: center;
+      text-align: center;
+      padding: 50px 20px 40px;
+      position: relative;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 3rem;
+      color: #2b4f60;
+    }
+    .tagline {
+      font-size: 1.2rem;
+      color: #2b4f60;
+      margin-top: 10px;
+    }
+    .mini-nav {
+      margin-top: 15px;
+    }
+    .mini-nav a {
+      margin: 0 10px;
+      text-decoration: none;
+      color: #2b4f60;
+      font-weight: bold;
+    }
+    .mini-nav a:hover {
+      text-decoration: underline;
+    }
+
+    /* 🔍 Search Bar */
+    .search-bar {
+      margin-top: 20px;
+    }
+    .search-bar input {
+      padding: 10px;
+      width: 280px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 15px;
+    }
+    .search-bar input:focus {
+      outline: none;
+      border-color: #4ecdc4;
+      box-shadow: 0 0 8px #4ecdc4;
+    }
+
+    /* 🌙 Dark Mode Button */
+    .dark-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: #2b4f60;
+      color: white;
+      padding: 10px 18px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: 0.3s;
+    }
+    .dark-btn:hover {
+      background: #13597a;
+      box-shadow: 0 0 10px #13597a;
+    }
+
+    /* 🌟 Sidebar Navigation */
+    .sidebar {
+      height: 100%;
+      width: 0;
+      position: fixed;
+      z-index: 3;
+      top: 0;
+      left: 0;
+      background-color: #2b4f60;
+      overflow-y: auto;
+      transition: 0.3s;
+      padding-top: 60px;
+    }
+    .sidebar a {
+      padding: 12px 20px;
+      text-decoration: none;
+      font-size: 18px;
+      color: white;
+      display: block;
+      transition: 0.3s;
+    }
+    .sidebar a:hover {
+      background-color: #13597a;
+    }
+    .close-btn {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      font-size: 24px;
+      color: white;
+      cursor: pointer;
+    }
+    .sidebar-btn {
+      font-size: 26px;
+      cursor: pointer;
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      color: white;
+      background: #2b4f60;
+      padding: 8px 14px;
+      border-radius: 6px;
+      border: none;
+      z-index: 4;
+    }
+    .sidebar-btn:hover {
+      background: #13597a;
+    }
+
+    /* 🌸 Sections */
+    section {
+      padding: 60px 20px;
+      max-width: 1000px;
+      margin: auto;
+      text-align: center;
+    }
+    h2 {
+      color: #2b4f60;
+      margin-bottom: 30px;
+    }
+
+    /* ✅ About section with background */
+    #about {
+      background: url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1600&q=80') no-repeat center/cover;
+      color: white;
+      border-radius: 14px;
+      padding: 60px 20px;
+    }
+    #about h2, #about p { color: white; }
+
+    /* 🌈 Skill Cards with subtle texture */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+    .skill-card {
+      background: white url('https://www.transparenttextures.com/patterns/cubes.png');
+      background-size: 120px;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .skill-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 15px #6dd5ed;
+    }
+    .icon {
+      font-size: 40px;
+      display: block;
+      margin-bottom: 10px;
+      animation: float 3s ease-in-out infinite;
+    }
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-8px); }
+      100% { transform: translateY(0px); }
+    }
+
+    /* ✅ Why Choose Us with image background */
+    #why {
+      background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+                  url('https://images.unsplash.com/photo-1508780709619-79562169bc64?auto=format&fit=crop&w=1600&q=80') no-repeat center/cover;
+      border-radius: 14px;
+      color: white;
+    }
+    #why h2 { color: white; }
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+    }
+    .why-card {
+      background: rgba(255,255,255,0.2);
+      color: #fff;
+      padding: 25px;
+      border-radius: 14px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .why-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px #ff9a9e;
+    }
+
+    /* ✅ Join Us with full background */
+    #join {
+      background: linear-gradient(135deg, rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+                  url('https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?auto=format&fit=crop&w=1600&q=80');
+      background-size: cover;
+      background-position: center;
+      border-radius: 14px;
+      color: white;
+    }
+    #join h2, #join p { color: white; }
+    .btn {
+      background: #2b4f60;
+      color: white;
+      padding: 10px 18px;
+      border-radius: 8px;
+      text-decoration: none;
+      margin: 8px;
+      display: inline-block;
+      transition: 0.3s;
+    }
+    .btn:hover {
+      background: #13597a;
+      box-shadow: 0 0 10px #13597a;
+    }
+
+    /* 📞 Contact */
+    .contact-links a {
+      margin: 0 10px;
+      text-decoration: none;
+      color: #2b4f60;
+      font-weight: bold;
+      display: inline-flex;
+      align-items: center;
+    }
+    .contact-links a::before {
+      content: "🌐 ";
+      margin-right: 5px;
+    }
+    .contact-links a:hover {
+      text-decoration: underline;
+    }
+
+    /* 🌸 Footer */
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #e2f1f8;
+      border-top: 2px solid #bbb;
+      font-size: 0.9rem;
+      color: #666;
+    }
+
+    /* 🌙 Dark Mode */
+    body.dark-mode {
+      background-color: #1c1c1c;
+      color: #eee;
+    }
+    body.dark-mode header {
+      background: linear-gradient(135deg, #141E30, #243B55);
+    }
+    body.dark-mode .skill-card {
+      background: #333;
+      color: #eee;
+    }
+    body.dark-mode .skill-card:hover {
+      box-shadow: 0 0 15px #0ff;
+    }
+    body.dark-mode .why-card {
+      background: #2b2b2b;
+      color: #eee;
+    }
+    body.dark-mode .join {
+      background: #222;
+      color: #eee;
+    }
+    body.dark-mode footer {
+      background: #111;
+      color: #aaa;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sidebar Button -->
+  <button class="sidebar-btn" onclick="openSidebar()">☰</button>
+
+  <!-- Sidebar -->
+  <div id="sidebar" class="sidebar">
+    <span class="close-btn" onclick="closeSidebar()">×</span>
+    <a href="finalhomepage.html">Home</a>
+    <a href="finalabout.html">About Us</a>
+    <a href="finalskills.html">All Skills</a>
+    <a href="finalcontact.html">Contact</a>
+    <a href="finallogin.html">Login</a>
+    <a href="finalsignup.html">Sign Up</a>
+    <a href="finalprofile.html">Profile</a>
+    <a href="finalscheduler.html">Scheduler</a>
+    <a href="finalchat.html">Chat</a>
+    <a href="finalfaq.html">Help/FAQ</a>
+    <a href="finalevents.html">Events</a>
+    <a href="finaldashboard.html">Dashboard</a>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <h1>Welcome to SkillSwap</h1>
+    <p class="tagline">Your go-to hub to learn and share skills with others!</p>
+    <div class="mini-nav">
+      <a href="#about">About</a> | 
+      <a href="#skills">Skills</a> | 
+      <a href="#contact">Contact</a>
+    </div>
+
+    <!-- Search Bar -->
+    <div class="search-bar">
+      <input type="text" id="searchInput" placeholder="Search skills...">
+    </div>
+
+    <button class="dark-btn" onclick="toggleDarkMode()">🌙 Dark Mode</button>
+  </header>
+
+  <!-- About Preview -->
+  <section id="about">
+    <h2>About SkillSwap</h2>
+    <p>SkillSwap is a platform where learners and experts come together to exchange knowledge across diverse fields.</p>
+    <a href="finalabout.html" class="btn">Learn More</a>
+  </section>
+
+  <!-- Popular Skills -->
+  <section id="skills">
+    <h2>🔥 Popular Skills</h2>
+    <div class="skills-grid">
+      <div class="skill-card"><span class="icon">🎨</span><b>UI/UX Design</b><br>Learn design & Figma basics</div>
+      <div class="skill-card"><span class="icon">🤖</span><b>Prompt Engineering</b><br>Master prompts for AI tools</div>
+      <div class="skill-card"><span class="icon">📒</span><b>Notion Workspace</b><br>Build aesthetic dashboards</div>
+      <div class="skill-card"><span class="icon">💼</span><b>LinkedIn Growth</b><br>Boost your career presence</div>
+      <div class="skill-card"><span class="icon">🎬</span><b>Video Editing</b><br>Create viral reels & shorts</div>
+    </div>
+  </section>
+
+  <!-- Why Choose Us -->
+  <section id="why">
+    <h2>💡 Why Choose SkillSwap?</h2>
+    <div class="why-grid">
+      <div class="why-card">🌍 Connect globally with learners</div>
+      <div class="why-card">🤝 100% Skill Exchange Model</div>
+      <div class="why-card">🚀 Fun & Interactive Learning</div>
+      <div class="why-card">📚 Diverse Skills & Communities</div>
+    </div>
+  </section>
+
+  <!-- Join Us -->
+  <section id="join">
+    <div class="join">
+      <h2>🌟 Join Our Community</h2>
+      <p>Be a part of a growing platform where knowledge is shared freely. Sign up today and start your journey!</p>
+      <a href="finallogin.html" class="btn">Login</a>
+      <a href="finalsignup.html" class="btn">Sign Up</a>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact">
+    <h2>📞 Contact Us</h2>
+    <p>We’d love to hear from you! Reach us through:</p>
+    <div class="contact-links">
+      <a href="mailto:skillswap@gmail.com">Email</a>
+      <a href="#">Instagram</a>
+      <a href="#">LinkedIn</a>
+      <a href="#">Twitter</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 SkillSwap. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // 🌙 Dark Mode (Persistent)
+    function toggleDarkMode() {
+      document.body.classList.toggle("dark-mode");
+      if(document.body.classList.contains("dark-mode")) {
+        localStorage.setItem("mode", "dark");
+      } else {
+        localStorage.setItem("mode", "light");
+      }
+    }
+    if(localStorage.getItem("mode") === "dark") {
+      document.body.classList.add("dark-mode");
+    }
+
+    function openSidebar() {
+      document.getElementById("sidebar").style.width = "260px";
+    }
+    function closeSidebar() {
+      document.getElementById("sidebar").style.width = "0";
+    }
+
+    // 🔍 Search Function
+    document.getElementById("searchInput").addEventListener("keyup", function() {
+      let filter = this.value.toLowerCase();
+      let cards = document.querySelectorAll(".skill-card");
+      
+      cards.forEach(card => {
+        let text = card.innerText.toLowerCase();
+        if (text.includes(filter)) {
+          card.style.display = "block";
+        } else {
+          card.style.display = "none";
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard - SkillSwap</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #fefefe;
+      color: #333;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    header {
+      background: linear-gradient(135deg, #89f7fe, #66a6ff);
+      padding: 40px 20px;
+      text-align: center;
+      color: white;
+      position: relative;
+    }
+    header h1 { margin: 0; font-size: 2rem; }
+
+    /* Sidebar Button */
+    .sidebar-btn {
+      font-size: 26px;
+      cursor: pointer;
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      color: white;
+      background: #2b4f60;
+      padding: 8px 14px;
+      border-radius: 6px;
+      border: none;
+      z-index: 4;
+    }
+
+    /* Dark Mode Button */
+    .dark-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: #2b4f60;
+      color: white;
+      padding: 8px 14px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: 0.3s;
+    }
+    .dark-btn:hover { background: #13597a; }
+
+    /* Sidebar */
+    .sidebar {
+      height: 100%;
+      width: 0;
+      position: fixed;
+      top: 0;
+      left: 0;
+      background-color: #2b4f60;
+      overflow-y: auto;
+      transition: 0.3s;
+      padding-top: 60px;
+      z-index: 3;
+    }
+    .sidebar a {
+      padding: 12px 20px;
+      text-decoration: none;
+      font-size: 18px;
+      color: white;
+      display: block;
+      transition: 0.3s;
+    }
+    .sidebar a:hover { background-color: #13597a; }
+    .close-btn {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      font-size: 24px;
+      color: white;
+      cursor: pointer;
+    }
+
+    /* Dashboard Layout */
+    .dashboard {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 20px;
+      max-width: 1100px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    /* Left Side */
+    .welcome, .analytics {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+    }
+    .welcome h2 { margin: 0 0 10px; }
+
+    .quick-links {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 15px;
+    }
+    .card {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+      text-align: center;
+      transition: 0.3s;
+      cursor: pointer;
+    }
+    .card:hover { transform: translateY(-5px); box-shadow: 0 0 12px #4ecdc4; }
+
+    /* Analytics Section */
+    .analytics h3 { margin-top: 0; }
+    .progress {
+      background: #ddd;
+      border-radius: 20px;
+      overflow: hidden;
+      margin: 10px 0 20px;
+      height: 18px;
+    }
+    .progress-bar {
+      height: 100%;
+      text-align: center;
+      color: white;
+      font-size: 12px;
+      line-height: 18px;
+    }
+    .skills-bar { width: 70%; background: #4ecdc4; }
+    .events-bar { width: 45%; background: #66a6ff; }
+    .profile-bar { width: 90%; background: #ff6b6b; }
+
+    /* Right Side */
+    .calendar, .notifications {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+    }
+    .calendar h3, .notifications h3 { margin-top: 0; }
+
+    .calendar table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: center;
+    }
+    .calendar th, .calendar td {
+      padding: 8px;
+      border: 1px solid #ddd;
+    }
+    .today {
+      background: #4ecdc4;
+      color: white;
+      font-weight: bold;
+      border-radius: 50%;
+    }
+
+    .notifications ul { padding-left: 20px; }
+    .notifications li { margin: 8px 0; }
+
+    /* Dark mode */
+    body.dark-mode { background: #1c1c1c; color: #eee; }
+    body.dark-mode header { background: linear-gradient(135deg, #141E30, #243B55); }
+    body.dark-mode .welcome,
+    body.dark-mode .analytics,
+    body.dark-mode .card,
+    body.dark-mode .calendar,
+    body.dark-mode .notifications { background: #333; color: #eee; }
+    body.dark-mode .calendar th, 
+    body.dark-mode .calendar td { border: 1px solid #555; }
+  </style>
+</head>
+<body>
+
+  <!-- Sidebar Button -->
+  <button class="sidebar-btn" onclick="openSidebar()">☰</button>
+
+  <!-- Sidebar -->
+  <div id="sidebar" class="sidebar">
+    <span class="close-btn" onclick="closeSidebar()">×</span>
+    <a href="finalhomepage.html">Home</a>
+    <a href="finalabout.html">About Us</a>
+    <a href="finalskills.html">All Skills</a>
+    <a href="finalcontact.html">Contact</a>
+    <a href="finallogin.html">Login</a>
+    <a href="finalsignup.html">Sign Up</a>
+    <a href="finalprofile.html">Profile</a>
+    <a href="finalscheduler.html">Scheduler</a>
+    <a href="finalchat.html">Chat</a>
+    <a href="finalfaq.html">Help/FAQ</a>
+    <a href="finalevents.html">Events</a>
+    <a href="finaldashboard.html">Dashboard</a>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <h1>Dashboard</h1>
+    <button class="dark-btn" onclick="toggleDarkMode()">🌙</button>
+  </header>
+
+  <!-- Dashboard Content -->
+  <div class="dashboard">
+    <!-- Left side -->
+    <div>
+      <div class="welcome">
+        <h2>Welcome back, User 👋</h2>
+        <p>Here’s a quick overview of your SkillSwap activities.</p>
+      </div>
+
+      <div class="analytics">
+        <h3>📊 Your Progress</h3>
+        <p>Skills Learned</p>
+        <div class="progress"><div class="progress-bar skills-bar">70%</div></div>
+        <p>Events Attended</p>
+        <div class="progress"><div class="progress-bar events-bar">45%</div></div>
+        <p>Profile Completion</p>
+        <div class="progress"><div class="progress-bar profile-bar">90%</div></div>
+      </div>
+
+      <div class="quick-links">
+        <div class="card" onclick="location.href='finalprofile.html'">👤 Profile</div>
+        <div class="card" onclick="location.href='finalskills.html'">📚 Skills</div>
+        <div class="card" onclick="location.href='finalchat.html'">💬 Chat</div>
+        <div class="card" onclick="location.href='finalevents.html'">📅 Events</div>
+        <div class="card" onclick="location.href='finalscheduler.html'">🗓️ Scheduler</div>
+        <div class="card" onclick="location.href='finalfaq.html'">❓ Help</div>
+      </div>
+    </div>
+
+    <!-- Right side -->
+    <div>
+      <!-- Mini Calendar -->
+      <div class="calendar">
+        <h3>📅 Calendar</h3>
+        <table id="calendarTable"></table>
+      </div>
+
+      <!-- Notifications -->
+      <div class="notifications">
+        <h3>🔔 Notifications</h3>
+        <ul>
+          <li>You have 2 new messages in Chat 💬</li>
+          <li>Upcoming Event: SkillSwap Workshop tomorrow at 6 PM 📢</li>
+          <li>Reminder: Update your Profile ✏️</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Dark mode persistence
+    if(localStorage.getItem("darkMode") === "enabled"){
+      document.body.classList.add("dark-mode");
+    }
+    function toggleDarkMode() {
+      document.body.classList.toggle("dark-mode");
+      if(document.body.classList.contains("dark-mode")){
+        localStorage.setItem("darkMode","enabled");
+      } else {
+        localStorage.setItem("darkMode","disabled");
+      }
+    }
+
+    // Sidebar
+    function openSidebar(){ document.getElementById("sidebar").style.width = "260px"; }
+    function closeSidebar(){ document.getElementById("sidebar").style.width = "0"; }
+
+    // Calendar generation
+    function generateCalendar() {
+      const today = new Date();
+      const month = today.getMonth();
+      const year = today.getFullYear();
+      const firstDay = new Date(year, month, 1).getDay();
+      const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+      const table = document.getElementById("calendarTable");
+      table.innerHTML = "";
+
+      // Month & Year Header
+      const headerRow = document.createElement("tr");
+      const headerCell = document.createElement("th");
+      headerCell.colSpan = 7;
+      headerCell.textContent = today.toLocaleString("default", { month: "long" }) + " " + year;
+      headerRow.appendChild(headerCell);
+      table.appendChild(headerRow);
+
+      // Weekdays Row
+      const daysRow = document.createElement("tr");
+      ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"].forEach(day => {
+        const cell = document.createElement("th");
+        cell.textContent = day;
+        daysRow.appendChild(cell);
+      });
+      table.appendChild(daysRow);
+
+      // Dates
+      let row = document.createElement("tr");
+      for(let i=0; i<firstDay; i++){
+        row.appendChild(document.createElement("td"));
+      }
+      for(let date=1; date<=daysInMonth; date++){
+        const cell = document.createElement("td");
+        cell.textContent = date;
+        if(date === today.getDate()){ cell.classList.add("today"); }
+        row.appendChild(cell);
+
+        if((date + firstDay) % 7 === 0){
+          table.appendChild(row);
+          row = document.createElement("tr");
+        }
+      }
+      table.appendChild(row);
+    }
+    generateCalendar();
+  </script>
+
+</body>
+</html>

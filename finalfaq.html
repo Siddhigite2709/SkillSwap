@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Help / FAQ - SkillSwap</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #fefefe;
+      color: #333;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    header {
+      background: linear-gradient(135deg, #89f7fe, #66a6ff);
+      padding: 50px 20px;
+      text-align: center;
+      position: relative;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2rem;
+      color: white;
+    }
+
+    /* Sidebar */
+    .sidebar-btn {
+      font-size: 26px;
+      cursor: pointer;
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      color: white;
+      background: #2b4f60;
+      padding: 8px 14px;
+      border-radius: 6px;
+      border: none;
+      z-index: 4;
+    }
+    .sidebar {
+      height: 100%;
+      width: 0;
+      position: fixed;
+      top: 0;
+      left: 0;
+      background: #2b4f60;
+      overflow-y: auto;
+      transition: 0.3s;
+      padding-top: 60px;
+      z-index: 3;
+    }
+    .sidebar a {
+      padding: 12px 20px;
+      display: block;
+      color: white;
+      text-decoration: none;
+      font-size: 18px;
+      transition: 0.3s;
+    }
+    .sidebar a:hover { background-color: #13597a; }
+    .close-btn {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      font-size: 24px;
+      cursor: pointer;
+      color: white;
+    }
+
+    /* Dark Mode Button */
+    .dark-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: #2b4f60;
+      color: white;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: 0.3s;
+    }
+    .dark-btn:hover { background: #13597a; }
+
+    /* Search */
+    .search-bar {
+      max-width: 500px;
+      margin: 20px auto;
+      text-align: center;
+    }
+    .search-bar input {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid #2b4f60;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    /* FAQ Section */
+    section {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+    }
+    .faq-item {
+      background: white;
+      border-radius: 8px;
+      margin: 10px 0;
+      padding: 15px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .faq-item:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+    .faq-item h3 {
+      margin: 0;
+      font-size: 1.1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+      font-size: 0.95rem;
+      color: #444;
+      margin-top: 8px;
+    }
+    .faq-item.active .faq-answer {
+      max-height: 200px;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 20px;
+      margin-top: 40px;
+      background: #e2f1f8;
+      border-top: 2px solid #bbb;
+    }
+
+    /* Dark Mode */
+    body.dark-mode { background: #1c1c1c; color: #eee; }
+    body.dark-mode header { background: linear-gradient(135deg, #141E30, #243B55); }
+    body.dark-mode .faq-item { background: #333; color: #eee; }
+    body.dark-mode .faq-answer { color: #ccc; }
+    body.dark-mode footer { background: #111; color: #aaa; }
+    body.dark-mode input { background: #222; border: 2px solid #555; color: #eee; }
+  </style>
+</head>
+<body>
+
+  <!-- Sidebar Button -->
+  <button class="sidebar-btn" onclick="openSidebar()">☰</button>
+
+  <!-- Sidebar -->
+  <div id="sidebar" class="sidebar">
+    <span class="close-btn" onclick="closeSidebar()">×</span>
+    <a href="finalhomepage.html">Home</a>
+    <a href="finalabout.html">About Us</a>
+    <a href="finalskills.html">All Skills</a>
+    <a href="finalcontact.html">Contact</a>
+    <a href="finallogin.html">Login</a>
+    <a href="finalsignup.html">Sign Up</a>
+    <a href="finalprofile.html">Profile</a>
+    <a href="finalscheduler.html">Scheduler</a>
+    <a href="finalchat.html">Chat</a>
+    <a href="finalfaq.html">Help/FAQ</a>
+    <a href="finalevents.html">Events</a>
+    <a href="finaldashboard.html">Dashboard</a>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <h1>Help & FAQ</h1>
+    <button class="dark-btn" onclick="toggleDarkMode()">🌙</button>
+  </header>
+
+  <!-- Search -->
+  <div class="search-bar">
+    <input type="text" id="searchInput" placeholder="Search FAQs...">
+  </div>
+
+  <!-- FAQ Section -->
+  <section id="faqContainer"></section>
+
+  <footer>
+    <p>&copy; 2025 SkillSwap | All Rights Reserved</p>
+  </footer>
+
+  <script>
+    // Hardcoded FAQs
+    const faqs = [
+      { q: "What is SkillSwap?", a: "SkillSwap is a platform where users can exchange and learn skills from one another 🚀." },
+      { q: "How do I join?", a: "You can sign up for free and start exploring skills right away." },
+      { q: "Is it free?", a: "Yes, SkillSwap is completely free for learners and sharers 🎉." },
+      { q: "How do I contact support?", a: "You can reach out through our Contact page or email us anytime." },
+      { q: "Can I teach and learn at the same time?", a: "Absolutely! SkillSwap is built to let you be both a learner and a teacher 👩‍🏫." }
+    ];
+
+    const faqContainer = document.getElementById("faqContainer");
+    const searchInput = document.getElementById("searchInput");
+
+    // Load FAQs
+    function renderFAQs(list) {
+      faqContainer.innerHTML = "";
+      list.forEach(faq => {
+        const div = document.createElement("div");
+        div.className = "faq-item";
+        div.innerHTML = `
+          <h3>${faq.q} <span>+</span></h3>
+          <div class="faq-answer"><p>${faq.a}</p></div>
+        `;
+        div.addEventListener("click", () => div.classList.toggle("active"));
+        faqContainer.appendChild(div);
+      });
+    }
+
+    renderFAQs(faqs);
+
+    // Search filter
+    searchInput.addEventListener("input", () => {
+      const searchText = searchInput.value.toLowerCase();
+      const filtered = faqs.filter(f => f.q.toLowerCase().includes(searchText) || f.a.toLowerCase().includes(searchText));
+      renderFAQs(filtered);
+    });
+
+    // Sidebar
+    function openSidebar() { document.getElementById("sidebar").style.width = "260px"; }
+    function closeSidebar() { document.getElementById("sidebar").style.width = "0"; }
+
+    // Dark Mode Persistence
+    if(localStorage.getItem("darkMode") === "enabled"){
+      document.body.classList.add("dark-mode");
+    }
+    function toggleDarkMode(){
+      document.body.classList.toggle("dark-mode");
+      localStorage.setItem("darkMode",
+        document.body.classList.contains("dark-mode") ? "enabled" : "disabled"
+      );
+    }
+  </script>
+
+</body>
+</html>

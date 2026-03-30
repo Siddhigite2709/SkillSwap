@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Scheduler - SkillSwap</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #fefefe;
+      color: #333;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    header {
+      background: linear-gradient(135deg, #89f7fe, #66a6ff);
+      text-align: center;
+      padding: 50px 20px;
+      position: relative;
+      color: #2b4f60;
+    }
+    header h1 { margin: 0; font-size: 2.2rem; }
+
+    /* Sidebar button */
+    .sidebar-btn {
+      font-size: 26px;
+      cursor: pointer;
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      color: white;
+      background: #2b4f60;
+      padding: 8px 14px;
+      border-radius: 6px;
+      border: none;
+      z-index: 4;
+    }
+
+    /* Dark Mode button */
+    .dark-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: #2b4f60;
+      color: white;
+      padding: 8px 14px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: 0.3s;
+    }
+    .dark-btn:hover { background: #13597a; }
+
+    /* Sidebar */
+    .sidebar {
+      height: 100%;
+      width: 0;
+      position: fixed;
+      top: 0;
+      left: 0;
+      background-color: #2b4f60;
+      overflow-y: auto;
+      transition: 0.3s;
+      padding-top: 60px;
+      z-index: 3;
+    }
+    .sidebar a {
+      padding: 12px 20px;
+      text-decoration: none;
+      font-size: 18px;
+      color: white;
+      display: block;
+      transition: 0.3s;
+    }
+    .sidebar a:hover { background-color: #13597a; }
+    .close-btn {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      font-size: 24px;
+      color: white;
+      cursor: pointer;
+    }
+
+    /* Section */
+    section {
+      max-width: 700px;
+      margin: 40px auto;
+      padding: 20px;
+      text-align: center;
+    }
+
+    /* Form */
+    form {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      margin-bottom: 30px;
+    }
+    input, select {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+    button {
+      padding: 12px 20px;
+      background: #2b4f60;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button:hover { background: #13597a; }
+
+    /* Session List */
+    .session-list {
+      text-align: left;
+    }
+    .session {
+      background: #f9f9f9;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .session span { font-weight: bold; }
+    .delete-btn {
+      background: #c0392b;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+    }
+    .delete-btn:hover { background: #e74c3c; }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #e2f1f8;
+      margin-top: 40px;
+      font-size: 0.9rem;
+    }
+
+    /* Dark Mode */
+    body.dark-mode { background: #1c1c1c; color: #eee; }
+    body.dark-mode header { background: linear-gradient(135deg, #141E30, #243B55); color: #eee; }
+    body.dark-mode form { background: #333; color: #eee; }
+    body.dark-mode input, body.dark-mode select { background: #222; color: #eee; border: 1px solid #555; }
+    body.dark-mode .session { background: #333; color: #eee; }
+    body.dark-mode footer { background: #111; color: #aaa; }
+  </style>
+</head>
+<body>
+
+  <!-- Sidebar Button -->
+  <button class="sidebar-btn" onclick="openSidebar()">☰</button>
+
+  <!-- Sidebar -->
+  <div id="sidebar" class="sidebar">
+    <span class="close-btn" onclick="closeSidebar()">×</span>
+    <a href="finalhomepage.html">Home</a>
+    <a href="finalabout.html">About Us</a>
+    <a href="finalskills.html">All Skills</a>
+    <a href="finalcontact.html">Contact</a>
+    <a href="finallogin.html">Login</a>
+    <a href="finalsignup.html">Sign Up</a>
+    <a href="finalprofile.html">Profile</a>
+    <a href="finalscheduler.html">Scheduler</a>
+    <a href="finalchat.html">Chat</a>
+    <a href="finalfaq.html">Help/FAQ</a>
+    <a href="finalevents.html">Events</a>
+    <a href="finaldashboard.html">Dashboard</a>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <h1>📅 Skill Scheduler</h1>
+    <button class="dark-btn" onclick="toggleDarkMode()">🌙</button>
+  </header>
+
+  <!-- Section -->
+  <section>
+    <form id="scheduleForm">
+      <h2>Schedule a New Session</h2>
+      <input type="text" id="skillName" placeholder="Skill Name" required>
+      <input type="date" id="date" required>
+      <input type="time" id="time" required>
+      <button type="submit">Add Session</button>
+    </form>
+
+    <h2>Upcoming Sessions</h2>
+    <div class="session-list" id="sessionList"></div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 SkillSwap. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // 🌙 Dark Mode persistence
+    if(localStorage.getItem("darkMode") === "enabled") {
+      document.body.classList.add("dark-mode");
+    }
+    function toggleDarkMode() {
+      document.body.classList.toggle("dark-mode");
+      localStorage.setItem("darkMode", 
+        document.body.classList.contains("dark-mode") ? "enabled" : "disabled"
+      );
+    }
+
+    // Sidebar
+    function openSidebar() { document.getElementById("sidebar").style.width = "260px"; }
+    function closeSidebar() { document.getElementById("sidebar").style.width = "0"; }
+
+    // Scheduler logic
+    const form = document.getElementById("scheduleForm");
+    const sessionList = document.getElementById("sessionList");
+    let sessions = JSON.parse(localStorage.getItem("sessions")) || [];
+
+    function renderSessions() {
+      sessionList.innerHTML = "";
+      if (sessions.length === 0) {
+        sessionList.innerHTML = "<p>No sessions scheduled yet.</p>";
+        return;
+      }
+      sessions.forEach((session, index) => {
+        const div = document.createElement("div");
+        div.classList.add("session");
+        div.innerHTML = `
+          <div>
+            <span>${session.skill}</span> <br>
+            ${session.date} at ${session.time}
+          </div>
+          <button class="delete-btn" onclick="deleteSession(${index})">Delete</button>
+        `;
+        sessionList.appendChild(div);
+      });
+    }
+
+    form.addEventListener("submit", e => {
+      e.preventDefault();
+      const skill = document.getElementById("skillName").value;
+      const date = document.getElementById("date").value;
+      const time = document.getElementById("time").value;
+
+      sessions.push({ skill, date, time });
+      localStorage.setItem("sessions", JSON.stringify(sessions));
+      renderSessions();
+      form.reset();
+    });
+
+    function deleteSession(index) {
+      sessions.splice(index, 1);
+      localStorage.setItem("sessions", JSON.stringify(sessions));
+      renderSessions();
+    }
+
+    renderSessions();
+  </script>
+
+</body>
+</html>
